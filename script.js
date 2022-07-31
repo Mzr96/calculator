@@ -44,7 +44,7 @@ btnDigits.forEach((btnDigit) =>
 );
 
 // Add keyboard
-window.addEventListener("keypress", function (e) {
+window.addEventListener("keydown", function (e) {
   console.log(e.key);
   if (e.key >= 0 && e.key <= 9) {
     if (isEraserOn) {
@@ -89,6 +89,10 @@ window.addEventListener("keypress", function (e) {
       inputs.fNumber = Number(display.textContent);
     }
     inputs.operator = e.key === "/" ? "÷" : "×";
+  } else if (e.key === "Backspace") {
+    if (display.textContent) {
+      display.textContent = display.textContent.slice(0, -1);
+    }
   }
 });
 
