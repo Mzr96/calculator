@@ -30,20 +30,10 @@ btnDecimalPoint.addEventListener("click", function () {
     isEraserOn = false;
   }
 });
+// Add keyboar
 
 btnDigits.forEach((btnDigit) =>
   btnDigit.addEventListener("click", function () {
-    // console.log(inputs);
-
-    // if (
-    //   inputs.fNumber === Number(display.textContent) ||
-    //   inputs.sNumber === Number(display.textContent) ||
-    //   inputs.result === Number(display.textContent)
-    // ) {
-    //   display.textContent = "";
-    //   // console.log(inputs);
-    // }
-    // display.textContent += btnDigit.textContent;
     if (isEraserOn) {
       display.textContent = btnDigit.textContent;
       isEraserOn = false;
@@ -53,14 +43,57 @@ btnDigits.forEach((btnDigit) =>
   })
 );
 
+// Add keyboard
+window.addEventListener("keypress", function (e) {
+  console.log(e.key);
+  if (e.key >= 0 && e.key <= 9) {
+    if (isEraserOn) {
+      display.textContent = e.key;
+      isEraserOn = false;
+    } else {
+      display.textContent += e.key;
+    }
+  } else if (e.key === ".") {
+    if (display.textContent.indexOf(".") === -1) {
+      if (isEraserOn) {
+        display.textContent = "0.";
+        isEraserOn = false;
+      } else {
+        display.textContent += ".";
+      }
+    } else if (isEraserOn) {
+      display.textContent = "0.";
+      isEraserOn = false;
+    }
+  } else if (e.key === "=" || e.key === "Enter") {
+    if (inputs.fNumber && inputs.operator) {
+      e.preventDefault();
+      isEraserOn = true;
+      calc();
+    }
+  } else if (e.key === "+" || e.key === "-") {
+    isEraserOn = true;
+    if (!inputs.sNumber && inputs.fNumber && display.textContent) {
+      calc();
+      inputs.fNumber = Number(display.textContent);
+    } else if (!inputs.fNumber && display.textContent) {
+      inputs.fNumber = Number(display.textContent);
+    }
+    inputs.operator = e.key;
+  } else if (e.key === "/" || e.key === "*") {
+    isEraserOn = true;
+    if (!inputs.sNumber && inputs.fNumber && display.textContent) {
+      calc();
+      inputs.fNumber = Number(display.textContent);
+    } else if (!inputs.fNumber && display.textContent) {
+      inputs.fNumber = Number(display.textContent);
+    }
+    inputs.operator = e.key === "/" ? "÷" : "×";
+  }
+});
+
 btnOperators.forEach((btnOperator) =>
   btnOperator.addEventListener("click", function (e) {
-    console.log(inputs);
-    // const numberOnDisplay = Number(display.textContent);
-    // const operator = e.target.textContent;
-    // inputs.fNumber = numberOnDisplay;
-    // inputs.operator = operator;
-    // display.textContent = "";
     isEraserOn = true;
     if (!inputs.sNumber && inputs.fNumber && display.textContent) {
       calc();
@@ -69,18 +102,10 @@ btnOperators.forEach((btnOperator) =>
       inputs.fNumber = Number(display.textContent);
     }
     inputs.operator = e.target.textContent;
-    console.log(inputs);
   })
 );
 
 btnEqual.addEventListener("click", function () {
-  // const numberOnDisplay = Number(display.textContent);
-  // inputs.sNumber = numberOnDisplay;
-  // const result = operate(inputs.operator, inputs.fNumber, inputs.sNumber);
-  // inputs.result = result;
-  // display.textContent = result;
-  // delete inputs.sNumber;
-  // console.log(inputs);
   if (inputs.fNumber && inputs.operator) {
     isEraserOn = true;
     calc();
