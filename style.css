@@ -1,0 +1,31 @@
+body {
+}
+.calculator {
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+  width: 320px;
+  height: 475px;
+  background-color: rgb(32, 32, 32);
+}
+
+button {
+  width: 75px;
+  height: 75px;
+  font-size: large;
+}
+
+div > .display {
+  height: 100px;
+  width: 300x;
+  background-color: rgb(243, 243, 243);
+  font-size: xx-large;
+}
+
+.operator {
+  background-color: rgb(255, 166, 0);
+}
+
+.clear {
+  width: 280;
+}
