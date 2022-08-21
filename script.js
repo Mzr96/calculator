@@ -117,16 +117,12 @@ window.addEventListener("keydown", function (e) {
   console.log(e);
   if (e.key >= 0 && e.key <= 9) {
     pushDigit(e);
+  } else if (e.key === "+" || e.key === "-" || e.key === "/" || e.key === "*") {
+    pushOperator(e);
+  } else if (e.key === "=" || e.key === "Enter") {
+    pushEqual();
   } else if (e.key === ".") {
     pushDecimalPoint();
-  } else if (e.key === "=" || e.key === "Enter") {
-    if (inputs.fNumber && inputs.operator) {
-      pushEqual();
-    }
-  } else if (e.key === "+" || e.key === "-") {
-    pushOperator(e);
-  } else if (e.key === "/" || e.key === "*") {
-    pushOperator(e);
   } else if (e.key === "Backspace") {
     pushBackspace();
   }
